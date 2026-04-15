@@ -1,0 +1,1 @@
+export type EstadoEvento = 'ACTIVO' | 'CANCELADO' | 'TERMINADO';
