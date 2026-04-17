@@ -154,19 +154,21 @@ public class HomeRestController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login (@RequestBody UsuarioDto usuDto){
-		
+
 		Usuario usuario = usuarioServ.findByEmail(usuDto.getEmail());
-		
+
 		if(usuario == null)
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no registrado o credenciales incorrectas.");
-		
-		String token = jwtSecurityService.generateToken(// jwtSecurityService sale del Autowired
-				usuario.getEmail(), 
+
+		if (!passdwordEncoder.matches(usuDto.getPassword(), usuario.getPassword()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no registrado o credenciales incorrectas.");
+
+		String token = jwtSecurityService.generateToken(
+				usuario.getAliasUsuario(),
 				usuario.getAuthorities());
 
-		
 		return ResponseEntity.ok(token);
-		
+
 	}
 
 }
