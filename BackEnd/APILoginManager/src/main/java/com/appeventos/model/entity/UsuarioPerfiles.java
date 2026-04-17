@@ -18,28 +18,25 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table (name = "usuario_perfiles")
-public class UsuarioPerfiles implements Serializable{
+@Table(name = "usuario_perfiles")
+public class UsuarioPerfiles implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	//Representa la id de la entidad cuando la PK es compuesta en una entidad independiente
-	@EmbeddedId
-	private UsuarioPerfilesId idUsuarioPerfiles;
+    private static final long serialVersionUID = 1L;
 
-	//meter aqui insertable = false y updatable = false
-    //porque el valor ya se escribe a través de UsuarioPerfilesId.userName
-	//con referencedColumnName la FK referencia a alias_usurio de Usuario
-	@ManyToOne(optional = false)
-	@JoinColumn(
-	name = "alias_usuario", 
-	referencedColumnName = "alias_usuario", 
-	insertable = false, 
-	updatable = false)
-	private Usuario usuario;
-	
-	@MapsId("idPerfil")//Aqui si, porque UsuarioPerfiles usa @Id de Perfil
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_perfil")
-	private Perfil perfil;
+    @EmbeddedId
+    private UsuarioPerfilesId idUsuarioPerfiles;
+
+    // @MapsId("aliasUsuario") indica que esta FK forma parte del EmbeddedId,
+    // concretamente del campo "aliasUsuario" en UsuarioPerfilesId.
+    // El string debe ser el NOMBRE DEL CAMPO JAVA en la clase @Embeddable,
+    // no el nombre de la columna SQL.
+    @MapsId("aliasUsuario")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "username", nullable = false)
+    private Usuario usuario;
+
+    @MapsId("idPerfil")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_perfil", nullable = false)
+    private Perfil perfil;
 }

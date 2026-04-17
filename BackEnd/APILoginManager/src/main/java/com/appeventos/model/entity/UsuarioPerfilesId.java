@@ -16,8 +16,7 @@ public class UsuarioPerfilesId implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	//caso especial, porque la FK no apunta al @Id de UsuarioPerfiles, apunta a userName
-	@Column(name = "alias_usuario")
+	@Column(name = "username")
 	private String aliasUsuario;
 	@Column(name = "id_perfil")
 	private Long idPerfil;

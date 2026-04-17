@@ -1,5 +1,6 @@
 package com.appeventos.model.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,47 +16,42 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(name="usuario")
-public class Usuario{
+@Table(name = "usuario")
+public class Usuario implements Serializable {
 
-	@Id
-	@Column(nullable = false, length = 45)
-	private String username; 
-	
-	@Column(nullable = false, length = 45)
-	private String password;
-	
-	@Column(nullable = false, length = 100)
-	private String email; 
+    private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false, length = 30)
-	private String nombre;
-	
-	@Column(name="primer_apellido", nullable = false, length = 45)
-	private String primerApellido;
-	
-	@Column(name="segundo_apellido", length = 45)//hay personas que solo tienen un apellido
-	private String segundoApellido;
-	
-	@Column(nullable = false, length = 100)
-	private String direccion; 
-	
-	@Column(nullable = false, length = 1)
-	private Integer enabled; 
+    @Id
+    @Column(name = "username", nullable = false, length = 45)
+    private String username;
 
-	@Column(name = "fecha_registro", nullable = false)
-	private LocalDate fechaRegistro; 
-	
-	//CascadeType.All si un usuario se borra, se borra el registro 
-	//hijo en la tabla usuraio_perfiles
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private  List<UsuarioPerfiles> usuarioPerfil;
-	
+    @Column(nullable = false, length = 45)
+    private String password;
+
+    @Column(nullable = false, length = 100)
+    private String email;
+
+    @Column(nullable = false, length = 30)
+    private String nombre;
+
+    @Column(nullable = false, length = 45)
+    private String apellidos;
+
+    @Column(nullable = false, length = 100)
+    private String direccion;
+
+    @Column(nullable = false, length = 1)
+    private Integer enabled;
+
+    @Column(name = "fecha_registro", nullable = false)
+    private LocalDate fechaRegistro;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<UsuarioPerfiles> usuarioPerfil;
 }
