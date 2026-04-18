@@ -18,23 +18,23 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table (name = "usuario_perfiles")
-public class UsuarioPerfiles implements Serializable{
+@Table(name = "usuario_perfiles")
+public class UsuarioPerfiles implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	//Repsersenta la id de la entidad cuando la PK es compuesta en una entidad independiente
-	@EmbeddedId
-	private UsuarioPerfilesId idUsuarioPerfiles;
+    private static final long serialVersionUID = 1L;
 
-	//MapsId define le atributo como parte de la pk compuesta idUsuarioPerfiles
-	@MapsId("username")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "username", nullable = false)
-	private Usuario usuario;
-	
-	@MapsId("id_perfil")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_perfil", nullable = false)
-	private Perfil perfil;
+    @EmbeddedId
+    private UsuarioPerfilesId idUsuarioPerfiles;
+
+    // "username" es el nombre del campo Java en UsuarioPerfilesId
+    @MapsId("username")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "username", nullable = false)
+    private Usuario usuario;
+
+    // "idPerfil" es el nombre del campo Java en UsuarioPerfilesId (no el nombre de columna "id_perfil")
+    @MapsId("idPerfil")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_perfil", nullable = false)
+    private Perfil perfil;
 }
