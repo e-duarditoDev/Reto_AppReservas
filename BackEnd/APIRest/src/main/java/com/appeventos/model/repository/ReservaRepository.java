@@ -13,5 +13,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     int countByUsername(String username);
 
+    int countByEvento_IdEvento(Long idEvento);
+
     Optional<Reserva> findByEvento_IdEventoAndUsername(Long idEvento, String username);
 }
