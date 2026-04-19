@@ -15,5 +15,5 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     List<Evento> findByDestacado(Destacado destacado);
 
-    List<Evento> findAllByEstadoAndFechaInicioBefore(Estado estado, LocalDateTime fecha);
+    List<Evento> findAllByEstadoAndFechaFinBefore(Estado estado, LocalDateTime fecha);
 }
