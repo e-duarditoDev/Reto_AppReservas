@@ -47,7 +47,7 @@ public class Evento implements Serializable {
     @Column(name = "fecha_fin", nullable = false)
     private LocalDateTime fechaFin;
 
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(nullable = false, precision = 9, scale = 2)
     private BigDecimal precio;
 
     @Column(nullable = false)

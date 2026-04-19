@@ -36,7 +36,7 @@ public class Reserva implements Serializable {
     @Column(name = "fecha_reserva", nullable = false)
     private LocalDateTime fechaReserva;
 
-    @Column(name = "precio_venta", nullable = false, precision = 8, scale = 2)
+    @Column(name = "precio_venta", nullable = false, precision = 9, scale = 2)
     private BigDecimal precioVenta;
 
     @ManyToOne(optional = false)
