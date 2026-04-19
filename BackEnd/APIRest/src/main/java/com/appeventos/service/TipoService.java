@@ -12,5 +12,7 @@ public interface TipoService {
 
     Tipo save(Tipo tipo);
 
+    Tipo update(Long id, Tipo tipo);
+
     void deleteById(Long id);
 }

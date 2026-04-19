@@ -34,6 +34,14 @@ public class TipoServiceImpl implements TipoService {
     }
 
     @Override
+    public Tipo update(Long id, Tipo tipo) {
+        Tipo existente = findById(id);
+        existente.setNombre(tipo.getNombre());
+        existente.setDescripcion(tipo.getDescripcion());
+        return tipoRepository.save(existente);
+    }
+
+    @Override
     public void deleteById(Long id) {
         if (!tipoRepository.existsById(id)) {
             throw new EntityNotFoundException("Tipo no encontrado con id: " + id);
