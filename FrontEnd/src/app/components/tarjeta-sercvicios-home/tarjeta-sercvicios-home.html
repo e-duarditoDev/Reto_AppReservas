@@ -1,0 +1,24 @@
+<div class="card shadow p-3 h-100">
+    <div class=" d-flex justify-content-between">
+        <img [src]="icon()" alt="Icono" class="img-fluid w-25 h-25 me-2 p-2">
+
+        <div class="d-flex justify-content-start flex-column w-75">
+
+            <img [src]="imagen()" [alt]="titulo()" class="img-fluid rounded-3 h-50 w-100">
+
+            <div class="card-title text-start fs-5 fw-semibold mt-1">
+                <p>{{titulo()}}</p>
+            </div>
+
+            <div class="card-body mt-0 p-0 text-start">
+                <p>{{descripcion()}}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-success custom-rounded px-4">Contactar</button>
+    </div>
+
+</div>

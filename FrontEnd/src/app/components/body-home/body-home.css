@@ -1,0 +1,34 @@
+.banner-container {
+    position: relative; /* Posicionar el pseudo-elemento dentro */
+    width: 100%;
+    height: 80vh; 
+    overflow: hidden; /* Recorta lo que se salga del contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pseudo-elemento que rellena los huecos a los lados*/
+.banner-container::before {
+    content: ""; /* Obligatorio para que el pseudo-elemento exista */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/nuestrosClientes/eduardo-miguela.webp');
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px) brightness(0.8); /* Desenfoque efecto "glass" */
+    transform: scale(1.1); /* Evita que se vean bordes blancos por el blur */
+    z-index: 1; /* Se manda al fondo */
+}
+
+/* Imagen principal nítida */
+.banner-img {
+    position: relative;
+    z-index: 2; /* Por encima del fondo desenfocado */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Muestra la foto completa sin recortarla */
+}
