@@ -1,9 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Inicio } from './paginas/public/home/inicio/inicio';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,//verifica los subcomponentes son standalone
+  imports: [
+    RouterOutlet,
+    Inicio
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
