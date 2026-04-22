@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: calc(100vh - 80px);
+    /* altura pantalla - header */
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Tarjeta */
+.card-login {
+    background: #f2f2f2;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Labels */
+.card-login label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Inputs */
+.card-login input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    outline: none;
+    margin-bottom: 18px;
+    transition: 0.2s;
+}
+
+/* Focus input */
+.card-login input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.2);
+}
+
+/* BOTÓN tipo píldora */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+
+    border-radius: 40px;
+    /* clave para forma redonda */
+    background-color: #0d8f4d;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* Hover botón */
+.btn-login:hover {
+    background-color: #0b7d43;
+    transform: translateY(-1px);
+}
+
+/* Active botón */
+.btn-login:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Link olvidar contraseña */
+.link-forgot {
+    display: block;
+    margin-top: 15px;
+    text-decoration: underline;
+    color: #333;
+    font-size: 15px;
+}
