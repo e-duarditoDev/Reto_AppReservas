@@ -4,10 +4,10 @@
 
         <h2 class="text-center mb-4">Iniciar sesión</h2>
 
-        <form (ngSubmit)="login()">
+        <form (ngSubmit)="login()" class="d-flex flex-column align-items-center w-auto p-0 m-0">
 
             <!-- EMAIL -->
-            <div>
+            <div class="w-100">
                 <label>Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
                     placeholder="Introduce su email">
@@ -20,7 +20,7 @@
             </div>
 
             <!-- PASSWORD -->
-            <div>
+            <div class="w-100">
                 <label>Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
                     placeholder="Introduce su contraseña">
@@ -40,7 +40,7 @@
             }
 
             <!-- BOTÓN -->
-            <button class="btn-login" [disabled]="loading">
+            <button class="btn btn-success w-75 mt-3 custom-rounded" [disabled]="loading">
 
                 @if (!loading) {
                 <span>Aceptar</span>
