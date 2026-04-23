@@ -1,7 +1,6 @@
 .nav-link-soft {
     display: inline-block;
     transition:
-        font-size 200ms ease-out,
         color 200ms ease;
 }
 
@@ -25,10 +24,36 @@
     transition: width 200ms ease-out;
 }
 
-/* Hover: entrada linea  hacia la izquierda */
+/* Hover: entrada linea desde la derecha */
 .nav-link-soft:hover::after {
     width: 105%; /* sobresale un poco por la izquierda */
     left: auto;
     right: -5%; /* sobresale un poco por la derecha*/
     transition: width 300ms ease-out;
+}
+
+.footer-shadow {
+    box-shadow: 0 -4px 6px rgba(69, 69, 69, 0.05);
+}
+
+/* Convierte el collapse en un menú flotante hacia arriba (Dropup) solo en móviles */
+@media (max-width: 767.98px) {
+    .menu-dropdown {
+        position: absolute;
+        width: 40vw;
+        padding: 1rem;
+        margin-top: 4.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        z-index: 1050; /* Lo pone por encima de todo */
+    
+    }
+}
+
+
+.img-hover {
+    transition: transform 0.3s ease-in-out;
+}
+
+.img-hover:hover {
+    transform: scale(1.1);
 }
