@@ -1,0 +1,62 @@
+<div class="container">
+
+    <div class="card-login">
+
+        <h2 class="text-center mb-4">Iniciar sesión</h2>
+
+        <form (ngSubmit)="login()">
+
+            <!-- EMAIL -->
+            <div>
+                <label>Email</label>
+                <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
+                    placeholder="Introduce su email">
+
+                @if (emailCtrl.invalid && emailCtrl.touched) {
+                <div class="text-danger">
+                    Introduce un email válido
+                </div>
+                }
+            </div>
+
+            <!-- PASSWORD -->
+            <div>
+                <label>Password</label>
+                <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
+                    placeholder="Introduce su contraseña">
+
+                @if (passCtrl.invalid && passCtrl.touched) {
+                <div class="text-danger">
+                    La contraseña es obligatoria
+                </div>
+                }
+            </div>
+
+            <!-- ERROR GENERAL -->
+            @if (error) {
+            <div class="text-danger mb-2">
+                {{ error }}
+            </div>
+            }
+
+            <!-- BOTÓN -->
+            <button class="btn-login" [disabled]="loading">
+
+                @if (!loading) {
+                <span>Aceptar</span>
+                } @else {
+                <span>Cargando...</span>
+                }
+
+            </button>
+
+            <!-- LINK -->
+            <a routerLink="/recuperar-password" class="link-forgot">
+                ¿Has olvidado la contraseña?
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

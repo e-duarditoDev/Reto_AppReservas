@@ -1,0 +1,92 @@
+<div class="container">
+
+    <div class="card-login">
+
+        <h2 class="text-center mb-4">Crear cuenta</h2>
+
+        <form (ngSubmit)="registro()">
+
+            <!-- NOMBRE -->
+            <div>
+                <label>Nombre</label>
+                <input type="text" [(ngModel)]="nombre" name="nombre" required #nombreCtrl="ngModel"
+                    placeholder="Tu nombre">
+
+                @if (nombreCtrl.invalid && nombreCtrl.touched) {
+                <div class="text-danger">
+                    El nombre es obligatorio
+                </div>
+                }
+            </div>
+
+            <!-- EMAIL -->
+            <div>
+                <label>Email</label>
+                <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
+                    placeholder="correo@email.com">
+
+                @if (emailCtrl.invalid && emailCtrl.touched) {
+                <div class="text-danger">
+                    Introduce un email válido
+                </div>
+                }
+            </div>
+
+            <!-- PASSWORD -->
+            <div>
+                <label>Contraseña</label>
+                <input type="password" [(ngModel)]="password" name="password" required minlength="4" #passCtrl="ngModel"
+                    placeholder="••••••">
+
+                @if (passCtrl.invalid && passCtrl.touched) {
+                <div class="text-danger">
+                    Mínimo 4 caracteres
+                </div>
+                }
+            </div>
+
+            <!-- CONFIRMAR PASSWORD -->
+            <div>
+                <label>Repetir contraseña</label>
+                <input type="password" [(ngModel)]="password2" name="password2" required #pass2Ctrl="ngModel"
+                    placeholder="••••••">
+
+                @if (password !== password2 && pass2Ctrl.touched) {
+                <div class="text-danger">
+                    Las contraseñas no coinciden
+                </div>
+                }
+            </div>
+
+            <!-- ERROR -->
+            @if (error) {
+            <div class="text-danger mb-2">
+                {{ error }}
+            </div>
+            }
+
+            <!-- BOTÓN -->
+            <button class="btn-login" [disabled]="loading">
+
+                @if (!loading) {
+                <span>Registrarse</span>
+                } @else {
+                <span>Cargando...</span>
+                }
+
+            </button>
+
+            <!-- CHECKBOX -->
+            <div class="checkbox-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" [(ngModel)]="newsletter" name="newsletter">
+
+                    Deseo recibir noticias y ofertas
+                </label>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
