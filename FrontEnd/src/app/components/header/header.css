@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap);
+
 /* EFECTO DEGRADADO EN EL NAV*/
 .header-soft {
     /*evita el fondo se salga del header*/
@@ -18,8 +20,9 @@
     /* invisible al inicio */
     width: 0%;
     background: linear-gradient(to left,
-            #00995219,
-            #00995206
+            #00995238,
+            #00995210,
+            #ffffff07
             );
     transition: 600ms ease-out;
     pointer-events: none;
@@ -67,15 +70,10 @@
 }
 
 
-.footer {
-    box-shadow: 0 -10px 12px rgba(0, 0, 0, 0.08);
-    background: linear-gradient(to right,
-            rgba(239, 210, 46, 0.05),
-            rgba(239, 210, 46, 0.2),
-            rgba(239, 210, 46, 0.05));
-}
-
-
-button {
-    border-radius: 6px 36px 6px 36px;
+.dancing-script-custom-font {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: fit-content;
+  font-size: x-large;
+  font-weight: 600;
+  font-style: normal;
 }

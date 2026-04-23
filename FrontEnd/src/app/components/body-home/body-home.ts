@@ -10,4 +10,11 @@ import { TarjetaSercviciosHome } from '../tarjeta-sercvicios-home/tarjeta-sercvi
   templateUrl: './body-home.html',
   styleUrl: './body-home.css',
 })
-export class BodyHome {}
+export class BodyHome {
+  // Array de imágenes para el carrusel
+  arrayImagenes: string[] = [
+    'nuestrosClientes/eduardo-miguela.webp',
+    'nuestrosClientes/cumpleAlexander.webp',
+    'nuestrosClientes/eugenia-gabriel.webp',
+  ];
+}
