@@ -1,0 +1,42 @@
+name: Deploy App Eventos Reto
+on:
+    push:
+        branches:
+        - main
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build Angular (Production)
+              run: npm run build -- --configuration production
+
+            - name: Clean remote directory
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.VPS_HOST }}
+                  username: deploy
+                  key: ${{ secrets.VPS_SSH_KEY }}
+                  script: |
+                      rm -rf /var/www/html/appeventos.edulazarodev.com/*
+            - name: Deploy to VPS via SCP
+              uses: appleboy/scp-action@v0.1.7
+              with:
+                  host: ${{ secrets.VPS_HOST }}
+                  username: deploy
+                  key: ${{ secrets.VPS_SSH_KEY }}
+                  source: "dist/FrontEnd/browser/*"
+                  target: "/var/www/html/appeventos.edulazarodev.com"
+                  strip_components: 3
+                  rm: false
