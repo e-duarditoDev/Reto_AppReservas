@@ -28,6 +28,11 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
+    public List<Reserva> findByEvento(Long idEvento) {
+        return reservaRepository.findByEvento_IdEvento(idEvento);
+    }
+
+    @Override
     public Reserva create(String username, Long idEvento) {
         Evento evento = eventoService.findById(idEvento);
 
