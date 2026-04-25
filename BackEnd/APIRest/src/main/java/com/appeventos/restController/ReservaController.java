@@ -24,6 +24,11 @@ public class ReservaController {
 
     private final ReservaService reservaService;
 
+    @GetMapping("/evento/{idEvento}")
+    public ResponseEntity<List<Reserva>> getByEvento(@PathVariable Long idEvento) {
+        return ResponseEntity.ok(reservaService.findByEvento(idEvento));
+    }
+
     @GetMapping("/mis-reservas")
     public ResponseEntity<List<Reserva>> getMisReservas(Authentication authentication) {
         String username = authentication.getName();
