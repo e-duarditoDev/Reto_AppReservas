@@ -1,0 +1,47 @@
+<div class="container-contacto">
+
+    <!--  BOTÓN VOLVER -->
+    <button class="btn-back" (click)="volver()"><i class="bi bi-arrow-return-left"></i> Volver</button>
+
+    <!-- TÍTULO -->
+    <h1>Contacto</h1>
+
+    <p class="descripcion">
+        Gracias por tu tiempo, cuéntanos tu idea y nos pondremos en contacto contigo.
+    </p>
+
+    <!--  CARD -->
+    <div class="card-contacto">
+
+        <form (ngSubmit)="enviar()">
+
+            <!-- INPUTS -->
+            <input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Indica tu nombre" required>
+
+            <input type="text" [(ngModel)]="apellido" name="apellido" placeholder="Indica tu primer apellido" required>
+
+            <!-- FILA -->
+            <div class="row">
+                <input type="email" [(ngModel)]="email" name="email" placeholder="Correo" required>
+                <input type="text" [(ngModel)]="telefono" name="telefono" placeholder="Teléfono (opcional)">
+            </div>
+
+            <textarea [(ngModel)]="mensaje" name="mensaje" placeholder="Describe tu idea..." required></textarea>
+
+            <button class="btn-enviar">Enviar</button>
+
+        </form>
+
+    </div>
+
+    <!--  OTRAS VÍAS -->
+    <div class="otras-vias">
+        <h3>Otras vías de contacto</h3>
+
+        <div class="contact-icons">
+            <a class="btn btn-outline-success" href="#"><img src="/icons/whatsapp.svg" alt="Whatsapp"> Whatsapp</a>
+            <a class="btn btn-outline-success" href="#"><img src="/icons/email.svg" alt="Email"> Email</a>
+        </div>
+    </div>
+
+</div>
