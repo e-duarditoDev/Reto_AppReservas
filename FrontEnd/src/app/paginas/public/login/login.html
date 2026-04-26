@@ -1,4 +1,7 @@
 <div class="container">
+    <button class="btn-back" (click)="volver()">
+        <img src="/icons/back-button.svg" alt="Volver" class="icon-back"> Volver
+    </button>
 
     <div class="card-login">
 
@@ -6,51 +9,35 @@
 
         <form (ngSubmit)="login()" class="d-flex flex-column align-items-center w-auto p-0 m-0">
 
-            <!-- EMAIL -->
             <div class="w-100">
                 <label>Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
                     placeholder="Introduce su email">
 
-                @if (emailCtrl.invalid && emailCtrl.touched) {
-                <div class="text-danger">
+                <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger">
                     Introduce un email válido
                 </div>
-                }
             </div>
 
-            <!-- PASSWORD -->
             <div class="w-100">
                 <label>Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
                     placeholder="Introduce su contraseña">
 
-                @if (passCtrl.invalid && passCtrl.touched) {
-                <div class="text-danger">
+                <div *ngIf="passCtrl.invalid && passCtrl.touched" class="text-danger">
                     La contraseña es obligatoria
                 </div>
-                }
             </div>
 
-            <!-- ERROR GENERAL -->
-            @if (error) {
-            <div class="text-danger mb-2">
+            <div *ngIf="error" class="text-danger mb-2">
                 {{ error }}
             </div>
-            }
 
-            <!-- BOTÓN -->
             <button class="btn btn-success w-75 mt-3 custom-rounded" [disabled]="loading">
-
-                @if (!loading) {
-                <span>Aceptar</span>
-                } @else {
-                <span>Cargando...</span>
-                }
-
+                <span *ngIf="!loading">Aceptar</span>
+                <span *ngIf="loading">Cargando...</span>
             </button>
 
-            <!-- LINK -->
             <a routerLink="/recuperar-password" class="link-forgot">
                 ¿Has olvidado la contraseña?
             </a>
@@ -58,5 +45,4 @@
         </form>
 
     </div>
-
 </div>

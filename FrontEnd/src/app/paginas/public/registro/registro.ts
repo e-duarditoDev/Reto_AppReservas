@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AuthService } from '../../../servicios/auth-service';
 
 @Component({
@@ -24,9 +24,17 @@ export class Registro {
 
   private authService = inject(AuthService);
 
+  constructor(private location: Location) {}
+
+  volver() {
+    this.location.back();
+  }
+
   registro() {
     this.error = '';
+    this.mensajeOk = '';
 
+    // VALIDACIONES
     if (!this.nombre || !this.email || !this.password) {
       this.error = 'Todos los campos son obligatorios';
       return;
@@ -39,28 +47,24 @@ export class Registro {
 
     this.loading = true;
 
+    // OBJETO QUE ENVÍAS AL BACKEND
     const datosRegistro = {
+      nombre: this.nombre,
       email: this.email,
       password: this.password,
+      newsletter: this.newsletter
     };
 
-
-    this.authService.confirmarEmail(this.email, this.password).subscribe({
-      next: () => {
-        this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
-        this.loading = false;
-      },
-      error: (err) => {
-        this.error = err.error || 'Ha ocurrido un error, intentalo de nuevo.';
-        this.loading = false;
-      }
-    });
-
-    // simulación
-/*     setTimeout(() => {
-      console.log('Usuario registrado:', this.nombre);
-      this.loading = false;
-    }, 1000); */
-
+    // LLAMADA REAL
+    // this.authService.confirmarEmail(datosRegistro).subscribe({
+    //   next: () => {
+    //     this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
+    //     this.loading = false;
+    //   },
+    //   error: (err) => {
+    //     this.error = err.error || 'Ha ocurrido un error, inténtalo de nuevo.';
+    //     this.loading = false;
+    //   }
+    // });
   }
 }
