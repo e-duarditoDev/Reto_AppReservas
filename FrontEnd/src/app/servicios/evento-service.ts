@@ -13,7 +13,7 @@ export class EventoService {
   //inject instancia la clase (inyecta dependencias), HttpClient permite hacer peticiones HTTP
   private readonly http = inject(HttpClient);
   //URL apunta a la api
-  private readonly apiUrl = 'http://localhost:8080/api/appeventos'
+  private readonly apiUrl = 'http://localhost:8082/eventos'
 
   //Obtiene la lista completa de eventos del backend
   getEventos(): Observable<Evento[]> {

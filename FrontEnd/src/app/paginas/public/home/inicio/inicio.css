@@ -1,7 +1,6 @@
 .background-home {
-    /* background-color: aqua; */
   background-image: linear-gradient(30deg, rgba(25, 112, 50, 0.312),  rgba(25, 112, 50, 0.056), white);
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
 }

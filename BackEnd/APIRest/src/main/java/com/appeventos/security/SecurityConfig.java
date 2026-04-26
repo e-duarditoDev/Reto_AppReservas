@@ -38,6 +38,8 @@ public class SecurityConfig {
                 .macAlgorithm(org.springframework.security.oauth2.jose.jws.MacAlgorithm.HS384)
                 .build();
     }
+    
+    
 
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {

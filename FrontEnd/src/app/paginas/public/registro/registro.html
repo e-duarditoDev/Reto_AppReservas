@@ -58,6 +58,12 @@
                 }
             </div>
 
+            @if (mensajeOk) {
+            <div class="text-success mb-2">
+                {{ mensajeOk }}
+            </div>
+            }
+
             <!-- ERROR -->
             @if (error) {
             <div class="text-danger mb-2">
@@ -66,15 +72,18 @@
             }
 
             <!-- BOTÓN -->
-            <button class="btn-login" [disabled]="loading">
+             <div class="d-flex justify-content-center align-items-center">
+                <button class="btn-login w-75 custom-rounded" [disabled]="loading">
 
-                @if (!loading) {
-                <span>Registrarse</span>
-                } @else {
-                <span>Cargando...</span>
-                }
+                    @if (!loading) {
+                    <span>Registrarse</span>
+                    } @else {
+                    <span>Cargando...</span>
+                    }
 
-            </button>
+                </button>
+             </div>
+
 
             <!-- CHECKBOX -->
             <div class="checkbox-container">
