@@ -10,12 +10,21 @@
 }
 
 .btn-back {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     margin: 20px 0;
     background: transparent;
     border: none;
     color: #0d4a28;
     cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.icon-back {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
 }
 
 h1 {
@@ -49,11 +58,25 @@ textarea {
     margin-bottom: 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0d8f4d;
+    box-shadow: 0 0 5px rgba(13, 143, 77, 0.3);
 }
 
 .row {
     display: flex;
     gap: 10px;
+}
+
+.row input {
+    flex: 1;
 }
 
 .btn-enviar {
@@ -64,6 +87,14 @@ textarea {
     background: #0d8f4d;
     color: white;
     border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #0b7a43;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(11, 122, 67, 0.4);
 }
 
 h3 {

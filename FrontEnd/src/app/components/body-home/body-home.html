@@ -1,19 +1,16 @@
+<div id="carruselClientes" class="carousel slide carousel-fade mb-5 shadow" data-bs-ride="carousel"
+    data-bs-interval="3000">
 
-<div id="carruselClientes" class="carousel slide carousel-fade mb-5 shadow" 
-        data-bs-ride="carousel" 
-        data-bs-interval="3000">
-
-  <div class="carousel-inner w-100 shadow">
-    @for (foto of arrayImagenes; track foto; let i = $index) {
-        <div class="carousel-item" [class.active]="i === 0" >
+    <div class="carousel-inner w-100 shadow">
+        @for (foto of arrayImagenes; track foto; let i = $index) {
+        <div class="carousel-item" [class.active]="i === 0">
 
             <div class="banner-container" [style.--bg-image]="'url(' + foto + ')'">
-                <img src="{{foto}}" alt="Galeria de trabajos realizados en eventos."
-                    class="banner-img">
+                <img src="{{foto}}" alt="Galeria de trabajos realizados en eventos." class="banner-img">
             </div>
 
         </div>
-    }
+        }
     </div>
 </div>
 
@@ -23,35 +20,29 @@
     <div class="d-flex flex-wrap w-100 gap-5 justify-content-center">
 
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <app-tarjeta-sercvicios-home 
-                icon="/iconos/vinilo_descompuesto.webp"
+            <app-tarjeta-sercvicios-home icon="/iconos/vinilo_descompuesto.webp"
                 imagen="/colaboradores/marcela-laskoski-Dj.webp" titulo="Ameniza con un DJ"
                 descripcion="Contrata un dj para todo tipo de eventos y fiestas privadas.">
             </app-tarjeta-sercvicios-home>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <app-tarjeta-sercvicios-home 
-                icon="/iconos/camara.webp"
-                imagen="/colaboradores/jamie-street-Fotografo.webp"
-                titulo="Rememora tu evento."
-                descripcion="Rememora tu evento con un fotógrafo 100% profesional.">
+            <app-tarjeta-sercvicios-home icon="/iconos/camara.webp" imagen="/colaboradores/jamie-street-Fotografo.webp"
+                titulo="Rememora tu evento." descripcion="Rememora tu evento con un fotógrafo 100% profesional.">
             </app-tarjeta-sercvicios-home>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <app-tarjeta-sercvicios-home 
-                icon="/iconos/bolaDisco.webp"
-                imagen="/colaboradores/onkar-singh-Animador.webp"
+            <app-tarjeta-sercvicios-home icon="/iconos/bolaDisco.webp" imagen="/colaboradores/onkar-singh-Animador.webp"
                 titulo="Decora tus eventos de cine" descripcion="Decora tus eventos y fiestas como soñaste.">
             </app-tarjeta-sercvicios-home>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <app-tarjeta-sercvicios-home 
-                icon="/iconos/tarta.webp"
-                imagen="/colaboradores/david-holifield-Pastelero.webp"
-                titulo="Tartas nivel Dios." descripcion="Un matiz de sabores y una calidad solo apta para deidades.">
+            <app-tarjeta-sercvicios-home icon="/iconos/tarta.webp"
+                imagen="/colaboradores/david-holifield-Pastelero.webp" titulo="Tartas nivel Dios."
+                descripcion="Un matiz de sabores y una calidad solo apta para deidades.">
+
             </app-tarjeta-sercvicios-home>
         </div>
 

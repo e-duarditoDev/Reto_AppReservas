@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../servicios/auth-service';
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
@@ -22,7 +21,11 @@ export class Registro {
   loading = false;
   newsletter = false;
 
-  private authService = inject(AuthService);
+  constructor(private location: Location) {}
+
+  volver() {
+    this.location.back();
+  }
 
   registro() {
     this.error = '';
