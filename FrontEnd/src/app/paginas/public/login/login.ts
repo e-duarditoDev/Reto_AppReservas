@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../servicios/auth-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,6 @@ import { AuthService } from '../../../servicios/auth-service';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-
 export class Login {
 
   email: string = '';
@@ -20,8 +20,14 @@ export class Login {
   loading: boolean = false;
   error: string = '';
 
-  private authService: any = inject(AuthService); // Inyectamos el servicio de autenticación (simulado)
-  private router: any = inject(RouterModule); // Inyectamos el Router para redirigir después del login  
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private location: Location = inject(Location);
+
+
+  volver() {
+    this.location.back();
+  }
 
   login() {
     this.error = '';
@@ -34,9 +40,12 @@ export class Login {
     this.loading = true;
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (token: string) => {
-        localStorage.setItem('jwt', token); // guarda el JWT
-        this.router.navigate(['/']);         // redirige al home
+      next: (res: any) => {
+        const token = res.token || res;
+
+        localStorage.setItem('jwt', token);
+        this.router.navigate(['/']);
+
         this.loading = false;
       },
       error: () => {
@@ -44,18 +53,5 @@ export class Login {
         this.loading = false;
       }
     });
-
-    // Simulación de login (luego conectamos backend)
-    /*     setTimeout(() => {
-          if (this.email === 'test@test.com' && this.password === '1234') {
-            localStorage.setItem('usuario', this.email);
-            console.log('Login correcto');
-          } else {
-            this.error = 'Credenciales incorrectas';
-          }
-    
-          this.loading = false;
-        }, 1000); */
-
   }
 }
