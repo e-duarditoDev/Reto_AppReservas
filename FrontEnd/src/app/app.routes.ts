@@ -25,9 +25,15 @@ export const routes: Routes = [
   {
     path: 'recuperar-password',
     loadComponent: () => import('./paginas/public/recuperar-password/recuperar-password').then(comp => comp.RecuperarPassword),
-    title: 'Recuperar contraseña'},
+    title: 'Recuperar contraseña'
+  },
   {
     path: '**', // ruta wildcard, se activa si no se encuentra ninguna ruta coincidente
     redirectTo: '' // Redirige a la ruta raíz (home) si no se encuentra la ruta solicitada
+  },
+  {
+    path: 'confirmar-mail',
+    loadComponent: () => import('./components/confirmar-mail/confirmar-mail').then(comp => comp.ConfirmarMail),
+    title: 'Confirmar correo electrónico'
   }
 ];

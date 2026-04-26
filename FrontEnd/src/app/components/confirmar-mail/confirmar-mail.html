@@ -1,0 +1,11 @@
+<div class="container mt-5 text-center">
+  @if (loading) {
+    <p>Procesando...</p>
+  }
+  @if (mensaje) {
+    <div class="text-success">{{ mensaje }}</div>
+  }
+  @if (error) {
+    <div class="text-danger">{{ error }}</div>
+  }
+</div>

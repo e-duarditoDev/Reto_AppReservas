@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../servicios/auth-service';
 
 @Component({
   selector: 'app-registro',
@@ -17,8 +18,12 @@ export class Registro {
   password2 = '';
 
   error = '';
+  mensajeOk = '';
   loading = false;
   newsletter = false;
+
+  private authService = inject(AuthService);
+
   registro() {
     this.error = '';
 
@@ -34,10 +39,28 @@ export class Registro {
 
     this.loading = true;
 
+    const datosRegistro = {
+      email: this.email,
+      password: this.password,
+    };
+
+
+    this.authService.confirmarEmail(this.email, this.password).subscribe({
+      next: () => {
+        this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err.error || 'Ha ocurrido un error, intentalo de nuevo.';
+        this.loading = false;
+      }
+    });
+
     // simulación
-    setTimeout(() => {
+/*     setTimeout(() => {
       console.log('Usuario registrado:', this.nombre);
       this.loading = false;
-    }, 1000);
+    }, 1000); */
+
   }
 }
