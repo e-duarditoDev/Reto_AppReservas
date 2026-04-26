@@ -82,7 +82,7 @@ public class HomeRestController {
 		usuarioTempServ.insertOne(ut);
 		
 		// Link de confirmación en local
-		String link = "http://localhost:5173/confirm-mail?token=" + tokenTemp;
+		String link = "http://localhost:4200/confirmar-mail?token=" + tokenTemp;
       
 		//envia el email montado en sendEmail() junto con el link de confirmacion
 		emailServ.sendEmail(usuarioDto.getEmail(), link);

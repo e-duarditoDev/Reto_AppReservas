@@ -28,11 +28,17 @@ export const routes: Routes = [
     title: 'Recuperar contraseña'
   },
     {
-      path: 'contacto',   loadComponent: () => import('./paginas/public/contacto/contacto').then(comp => comp.Contacto),
-    title: 'Recuperar contraseña'
+      path: 'contacto',   
+      loadComponent: () => import('./paginas/public/contacto/contacto').then(comp => comp.Contacto),
+      title: 'Recuperar contraseña'
   },
   {
     path: '**', // ruta wildcard, se activa si no se encuentra ninguna ruta coincidente
     redirectTo: '' // Redirige a la ruta raíz (home) si no se encuentra la ruta solicitada
+  },
+  {
+    path: 'confirmar-mail',
+    loadComponent: () => import('./components/confirmar-mail/confirmar-mail').then(comp => comp.ConfirmarMail),
+    title: 'Confirmar correo electrónico'
   }
 ];
