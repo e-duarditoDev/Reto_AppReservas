@@ -1,0 +1,90 @@
+.background-home {
+    min-height: 100vh;
+
+    background: linear-gradient(120deg,
+            rgba(25, 112, 50, 0.15),
+            rgba(25, 112, 50, 0.05),
+            rgba(255, 255, 255, 0.9));
+
+    background-attachment: fixed;
+}
+
+.btn-back {
+    display: block;
+    margin: 20px 0;
+    background: transparent;
+    border: none;
+    color: #0d4a28;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    margin: 25px 0 5px 0;
+}
+
+.descripcion {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.container-contacto {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card-contacto {
+    background: #f2f2f2;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-enviar {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 30px;
+    border-radius: 40px;
+    background: #0d8f4d;
+    color: white;
+    border: none;
+}
+
+h3 {
+    text-align: center;
+    margin: 25px 0 5px 0;
+    margin-bottom: 30px;
+}
+
+.otras-vias {
+    margin-top: 40px;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.contact-icons img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 10px;
+}
