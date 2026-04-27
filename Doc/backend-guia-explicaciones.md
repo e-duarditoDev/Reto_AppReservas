@@ -864,6 +864,7 @@ El servidor debe indicar explícitamente qué orígenes, métodos y cabeceras es
 ### Configuración en `SecurityConfig`
 
 ```java
+// APIRest (puerto 8080)
 @Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
@@ -876,7 +877,27 @@ public CorsConfigurationSource corsConfigurationSource() {
     source.registerCorsConfiguration("/**", config);
     return source;
 }
+
+// APILoginManager (puerto 8082) — debe incluir el puerto del Swagger de APIRest
+@Bean
+CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOrigins(List.of(
+        "http://localhost:4200",   // Angular
+        "http://localhost:5173",   // Vite / frontend dev
+        "http://localhost:8080",   // Swagger UI de APIRest llama a este servicio
+        "http://localhost:8082"    // mismo origen para peticiones locales
+    ));
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    config.setAllowedHeaders(List.of("*"));
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
+}
 ```
+
+**Por qué APILoginManager necesita `localhost:8080` en sus orígenes permitidos:** el Swagger UI está alojado en APIRest (`localhost:8080`). Cuando el usuario hace clic en "Execute" en Swagger para llamar a `POST /auth/login`, el navegador envía esa petición desde `localhost:8080` hacia `localhost:8082`. Sin `localhost:8080` en los orígenes permitidos de APILoginManager, el navegador bloquea la respuesta con "Failed to fetch".
 
 Y activarlo en el filtro de seguridad:
 ```java
@@ -910,3 +931,100 @@ La regla de seguridad se declaró explícitamente en `SecurityConfig` antes de `
 ```
 
 Sin esta línea, cualquier usuario autenticado podría ver las reservas de otros — `anyRequest().authenticated()` solo exige estar logado, no ser admin.
+
+---
+
+## Extra — Sincronización de claves JWT entre dos APIs
+
+Cuando hay dos servicios independientes que firman y verifican JWT respectivamente, **ambos deben usar exactamente la misma clave secreta**. Si la clave de firma (APILoginManager) y la de verificación (APIRest) son distintas, todos los tokens devolverán 401 aunque el token sea estructuralmente correcto.
+
+### Síntoma
+
+```
+401 Unauthorized
+www-authenticate: Bearer resource_metadata="http://localhost:8080/.well-known/oauth-protected-resource"
+```
+
+Y en la consola del servidor:
+
+```
+AuthenticationServiceException: An error occurred while attempting to decode the Jwt:
+The secret length for HS384 must be at least 384 bits
+```
+
+El segundo error indica que la clave que está leyendo APIRest tiene menos bytes de los necesarios para el algoritmo HS384, lo que confirma que está leyendo una clave diferente (la original, más corta).
+
+### Causa habitual: clave diferente en cada `application.properties`
+
+```properties
+# APILoginManager/src/main/resources/application.properties
+jwt.secret=/sWwResFLrnjR1XEEMShseNxWVRUAgeiAdeKvCsZrwZ3LTzuQhdK4vD+jx5NyMId
+
+# APIRest/src/main/resources/application.properties  ← debe ser IDÉNTICA
+jwt.secret=/sWwResFLrnjR1XEEMShseNxWVRUAgeiAdeKvCsZrwZ3LTzuQhdK4vD+jx5NyMId
+```
+
+La clave es un secreto en Base64. Ambas APIs la decodifican con `Base64.getDecoder().decode()` y obtienen los mismos bytes → misma clave HMAC → las firmas coinciden.
+
+### Cómo generar una clave válida para HS384
+
+El proyecto incluye `GeneradorClave384bits.java` en APILoginManager. Ejecutarlo imprime por consola una clave Base64 válida de 384 bits lista para copiar en ambos archivos:
+
+```java
+SecretKey key = Jwts.SIG.HS384.key().build();
+System.out.println(Encoders.BASE64.encode(key.getEncoded()));
+```
+
+Requisito mínimo para HS384: **48 bytes = 384 bits** después del decode Base64. Con menos bytes, Nimbus JOSE (la librería interna de Spring Security) rechaza el token.
+
+### El token sigue siendo rechazado después de cambiar la clave
+
+En Eclipse/STS, el Spring Boot Dashboard ejecuta la aplicación desde `target/classes/`, **no** desde `src/main/resources/`. Si solo editas el archivo fuente sin recompilar, el servidor sigue leyendo la clave antigua del directorio compilado.
+
+**Solución: Maven clean → install antes de reiniciar**
+
+```
+Clic derecho en el proyecto → Run As → Maven clean
+Clic derecho en el proyecto → Run As → Maven install (o -DskipTests)
+Reiniciar desde el Spring Boot Dashboard
+```
+
+Desde terminal:
+```bash
+mvn clean install -DskipTests
+```
+
+Esto aplica a **cualquier cambio en `application.properties`**: la propiedad nueva no tiene efecto hasta que Maven copia el archivo actualizado a `target/classes/`.
+
+---
+
+## Extra — Path matching en Spring Security: `/**` no cubre la ruta raíz
+
+Un patrón muy habitual de error al configurar rutas públicas:
+
+```java
+// INCOMPLETO — cubre /tipos/1, /tipos/abc, pero NO /tipos
+.requestMatchers(HttpMethod.GET, "/tipos/**").permitAll()
+```
+
+En Spring Security, `/**` requiere al menos un segmento después de la barra. La ruta `/tipos` (sin nada después) no hace match con `/tipos/**` y cae al siguiente matcher — en este proyecto, `.anyRequest().authenticated()`.
+
+Resultado: `GET /tipos` devuelve 401 aunque sea un endpoint público.
+
+**Corrección: listar explícitamente la ruta raíz junto al wildcard**
+
+```java
+.requestMatchers(HttpMethod.GET, "/tipos", "/tipos/**").permitAll()
+.requestMatchers(HttpMethod.GET, "/eventos", "/eventos/**").permitAll()
+```
+
+Esto cubre todos los casos:
+- `/tipos` → lista completa (sin path variable)
+- `/tipos/1` → detalle por ID
+- `/tipos/algo/mas` → cualquier subruta
+
+### El 401 que confunde: token inválido en ruta pública
+
+Otro comportamiento no obvio: si envías un `Authorization: Bearer <token>` con firma inválida a una ruta `permitAll()`, Spring Security devuelve **401 igualmente**. El middleware de OAuth2 Resource Server intenta validar el token **antes** de comprobar si la ruta es pública. Si el token falla la validación, rechaza la petición sin llegar a evaluar los permisos de la ruta.
+
+Para endpoints verdaderamente públicos, la forma más limpia de probarlos es sin cabecera `Authorization`. Si devuelven 200 sin token, la configuración de rutas es correcta; si devuelven 401 con un token inválido, el problema es la clave JWT, no los permisos.
