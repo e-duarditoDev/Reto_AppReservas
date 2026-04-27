@@ -2,19 +2,18 @@ import { Routes } from '@angular/router';
 import { Inicio } from './paginas/public/home/inicio/inicio';
 import { Login } from './paginas/public/login/login';
 import { Registro } from './paginas/public/registro/registro';
-import { RecuperarPassword } from './paginas/public/recuperar-password/recuperar-password';
+import { RecuperarPassword } from './paginas/public/recuperar-password/recuperar-password'; 
 
 /* Asocia una ruta (path) con un Componente (mapa de rutas) */
 export const routes: Routes = [
   {
-    path: '', // Ruta RAIZ (home), se referencia con routerlink="" en el html
+    path: '',
     component: Inicio,
-    title: 'Página de inicio' // titulo de la pestana del navegador, UX y SEO
+    title: 'Página de inicio'
   },
   {
     path: 'login',
-    // component: Login, // Carga directa sin lazy loading
-    loadComponent: () => import('./paginas/public/login/login').then(comp => comp.Login), //carga lazy loading del componente, se carga solo cuando se accede a la ruta
+    loadComponent: () => import('./paginas/public/login/login').then(comp => comp.Login),
     title: 'Iniciar sesión'
   },
   {

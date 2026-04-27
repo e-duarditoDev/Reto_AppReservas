@@ -39,6 +39,19 @@ export class AuthService {
       { responseType: 'text' }
     );
   } 
+  
+  isLogged(): boolean {
+    if (typeof localStorage !== 'undefined') {
+      return !!localStorage.getItem('jwt');
+    }
+    return false;
+  }
+
+  logout() {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('jwt');
+    }
+  }
 
 }
 

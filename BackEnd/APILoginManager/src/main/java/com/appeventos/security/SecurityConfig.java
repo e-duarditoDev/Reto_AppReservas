@@ -57,7 +57,9 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.POST, "/auth/confirmar-email", "/auth/login/**", "/auth/alta-cliente/**").permitAll()
 
 			//CUALQUIER OTRA PETICION
-			.anyRequest().authenticated()
+			//.anyRequest().authenticated()
+			//TODOS (PARA PRUEBAS)
+			.anyRequest().permitAll() //temporal
 //			)
 //			
 //			.httpBasic(Customizer.withDefaults() //no hace falta porque le pasamos un Raw

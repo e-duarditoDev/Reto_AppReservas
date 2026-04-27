@@ -1,0 +1,24 @@
+<div class="container mt-4">
+
+    <!-- BUSCADOR -->
+    <input type="text" [(ngModel)]="busqueda" (input)="filtrar()" placeholder="Buscar eventos..."
+        class="form-control mb-4">
+
+    <!-- LISTADO -->
+    <div class="row">
+
+        @for (evento of eventosFiltrados; track evento.id) {
+
+        <div class="col-md-6 mb-4">
+
+            <app-tarjeta-sercvicios-home [icon]="'/icons/evento.svg'" [imagen]="evento.imagen" [titulo]="evento.titulo"
+                [descripcion]="evento.descripcion">
+            </app-tarjeta-sercvicios-home>
+
+        </div>
+
+        }
+
+    </div>
+
+</div>

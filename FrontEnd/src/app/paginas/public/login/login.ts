@@ -24,6 +24,10 @@ export class Login {
   private router: any = inject(Router); // Inyectamos el Router para redirigir después del login  
   private cd = inject(ChangeDetectorRef);
 
+  volver() {
+    this.router.navigate(['/']);
+  }
+
   login() {
     this.error = '';
 
@@ -59,4 +63,5 @@ export class Login {
           this.loading = false;
         }, 1000); */
   }
+  
 }
