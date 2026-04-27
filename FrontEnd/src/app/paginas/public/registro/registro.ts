@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AuthService } from '../../../servicios/auth-service';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -26,8 +26,15 @@ export class Registro {
   private authService = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
 
+  constructor(private location: Location) {}
+
+  volver() {
+    this.location.back();
+  }
+
   registro() {
     this.error = '';
+    this.mensajeOk = '';
 
     if (this.password !== this.password2) {
       this.error = 'Las contraseñas no coinciden.';
@@ -36,9 +43,12 @@ export class Registro {
 
     this.loading = true;
 
+    // OBJETO QUE ENVÍAS AL BACKEND
     const datosRegistro = {
+      nombre: this.nombre,
       email: this.email,
       password: this.password,
+      newsletter: this.newsletter
     };
 
 

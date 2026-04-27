@@ -6,7 +6,6 @@
 
         <form (ngSubmit)="login()" class="d-flex flex-column align-items-center w-auto p-0 m-0">
 
-            <!-- EMAIL -->
             <div class="w-100">
                 <label class="mb-2 fw-bold">Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
@@ -16,10 +15,8 @@
                 <div class="text-danger bg-danger-subtle text-center mb-3">
                     Introduce un email válido
                 </div>
-                }
             </div>
 
-            <!-- PASSWORD -->
             <div class="w-100">
                 <label class="mb-2 fw-bold">Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
@@ -29,7 +26,6 @@
                 <div class="text-danger bg-danger-subtle text-center mb-3">
                     La contraseña es obligatoria
                 </div>
-                }
             </div>
 
             <!-- ERROR GENERAL -->
@@ -37,7 +33,6 @@
             <div class="text-danger mb-2 bg-danger-subtle text-center">
                 {{ error }}
             </div>
-            }
 
             <!-- BOTÓN -->
             <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading">
@@ -50,7 +45,6 @@
 
             </button>
 
-            <!-- LINK -->
             <a routerLink="/recuperar-password" class="link-forgot">
                 ¿Has olvidado la contraseña?
             </a>
@@ -58,5 +52,4 @@
         </form>
 
     </div>
-
 </div>
