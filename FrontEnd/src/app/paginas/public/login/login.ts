@@ -37,7 +37,7 @@ export class Login {
     this.authService.login(this.email, this.password).subscribe({
       next: (token: string) => {
         localStorage.setItem('jwt', token); // guarda el JWT
-        this.router.navigateByUrl('/'); // redirige al home
+        this.router.navigateByUrl('/eventos'); // redirige al listado de eventos
         this.loading = false;
       },
       error: () => {

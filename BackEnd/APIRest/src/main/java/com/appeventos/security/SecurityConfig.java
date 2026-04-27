@@ -57,7 +57,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:8080"));
+        config.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:5173", "http://localhost:8080"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
@@ -75,6 +75,8 @@ public class SecurityConfig {
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // Preflight CORS — el navegador envía OPTIONS sin JWT antes de POST/PUT/DELETE
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // Swagger UI — accesible sin autenticación
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // Rutas públicas — consulta de eventos y tipos sin autenticación

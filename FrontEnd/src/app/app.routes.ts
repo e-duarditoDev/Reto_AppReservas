@@ -46,6 +46,12 @@ export const routes: Routes = [
     title: 'Completar perfil de usuario'
   },
 
+    {
+    path: 'eventos',
+    loadComponent: () => import('./paginas/private/lista-eventos/lista-eventos').then(comp => comp.ListaEventos),
+    title: 'Eventos disponibles'
+  },
+
   {
     path: '**', // ruta wildcard, se activa si no se encuentra ninguna ruta coincidente
     redirectTo: '' // Redirige a la ruta raíz (home) si no se encuentra la ruta solicitada
