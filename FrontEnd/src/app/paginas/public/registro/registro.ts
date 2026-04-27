@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../servicios/auth-service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-registro',
@@ -23,17 +24,13 @@ export class Registro {
   newsletter = false;
 
   private authService = inject(AuthService);
+  private cd = inject(ChangeDetectorRef);
 
   registro() {
     this.error = '';
 
-    if (!this.nombre || !this.email || !this.password) {
-      this.error = 'Todos los campos son obligatorios';
-      return;
-    }
-
     if (this.password !== this.password2) {
-      this.error = 'Las contraseñas no coinciden';
+      this.error = 'Las contraseñas no coinciden.';
       return;
     }
 
@@ -47,20 +44,24 @@ export class Registro {
 
     this.authService.confirmarEmail(this.email, this.password).subscribe({
       next: () => {
+        console.log('next ejecutado');
         this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
         this.loading = false;
+        this.cd.detectChanges();
       },
       error: (err) => {
-        this.error = err.error || 'Ha ocurrido un error, intentalo de nuevo.';
+        this.error = typeof err.error === 'string' ? err.error : 'Ha ocurrido un error, intentalo de nuevo.';
         this.loading = false;
+        this.cd.detectChanges();
+
       }
     });
 
     // simulación
-/*     setTimeout(() => {
-      console.log('Usuario registrado:', this.nombre);
-      this.loading = false;
-    }, 1000); */
+    /*     setTimeout(() => {
+          console.log('Usuario registrado:', this.nombre);
+          this.loading = false;
+        }, 1000); */
 
   }
 }

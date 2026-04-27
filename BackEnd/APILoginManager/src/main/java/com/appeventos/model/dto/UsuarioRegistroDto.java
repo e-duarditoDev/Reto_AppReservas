@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UsuarioDto {
+public class UsuarioRegistroDto {
 
-	private String email;
-	private String password;
+	private String nombre;
+	private String apellidos;
+	private String direccion;
+	
 }
 

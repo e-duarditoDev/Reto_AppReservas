@@ -7,7 +7,6 @@ import { Inicio } from './paginas/public/home/inicio/inicio';
   standalone: true,//verifica los subcomponentes son standalone
   imports: [
     RouterOutlet,
-    Inicio
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

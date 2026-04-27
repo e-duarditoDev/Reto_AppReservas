@@ -54,7 +54,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests(auth -> auth //rutas autorizadas
 				
 			//RUTAS PUBLICAS
-			.requestMatchers(HttpMethod.POST, "/auth/confirmar-email", "/auth/login", "/auth/alta-cliente/**").permitAll()
+			.requestMatchers(HttpMethod.POST, "/auth/confirmar-email", "/auth/login/**", "/auth/alta-cliente/**").permitAll()
 
 			//CUALQUIER OTRA PETICION
 			.anyRequest().authenticated()

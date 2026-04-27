@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container w-75">
 
-    <div class="card-login">
+    <div class="card-login w-50">
 
         <h2 class="text-center mb-4">Iniciar sesión</h2>
 
@@ -8,12 +8,12 @@
 
             <!-- EMAIL -->
             <div class="w-100">
-                <label>Email</label>
+                <label class="mb-2 fw-bold">Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
                     placeholder="Introduce su email">
 
                 @if (emailCtrl.invalid && emailCtrl.touched) {
-                <div class="text-danger">
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     Introduce un email válido
                 </div>
                 }
@@ -21,12 +21,12 @@
 
             <!-- PASSWORD -->
             <div class="w-100">
-                <label>Password</label>
+                <label class="mb-2 fw-bold">Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
                     placeholder="Introduce su contraseña">
 
                 @if (passCtrl.invalid && passCtrl.touched) {
-                <div class="text-danger">
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     La contraseña es obligatoria
                 </div>
                 }
@@ -34,13 +34,13 @@
 
             <!-- ERROR GENERAL -->
             @if (error) {
-            <div class="text-danger mb-2">
+            <div class="text-danger mb-2 bg-danger-subtle text-center">
                 {{ error }}
             </div>
             }
 
             <!-- BOTÓN -->
-            <button class="btn btn-success w-75 mt-3 custom-rounded" [disabled]="loading">
+            <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading">
 
                 @if (!loading) {
                 <span>Aceptar</span>
