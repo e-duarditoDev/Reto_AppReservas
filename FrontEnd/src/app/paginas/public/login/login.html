@@ -10,7 +10,7 @@
             <div class="w-100">
                 <label class="mb-2 fw-bold">Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
-                    placeholder="Introduce su email">
+                    placeholder="Introduce su email"/>
 
                 @if (emailCtrl.invalid && emailCtrl.touched) {
                 <div class="text-danger bg-danger-subtle text-center mb-3">
@@ -23,7 +23,7 @@
             <div class="w-100">
                 <label class="mb-2 fw-bold">Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
-                    placeholder="Introduce su contraseña">
+                    placeholder="Introduce su contraseña"/>
 
                 @if (passCtrl.invalid && passCtrl.touched) {
                 <div class="text-danger bg-danger-subtle text-center mb-3">
@@ -41,13 +41,11 @@
 
             <!-- BOTÓN -->
             <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading">
-
                 @if (!loading) {
                 <span>Aceptar</span>
                 } @else {
                 <span>Cargando...</span>
                 }
-
             </button>
 
             <!-- LINK -->
