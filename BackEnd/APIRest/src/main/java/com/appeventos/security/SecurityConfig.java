@@ -78,8 +78,8 @@ public class SecurityConfig {
                 // Swagger UI — accesible sin autenticación
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // Rutas públicas — consulta de eventos y tipos sin autenticación
-                .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/tipos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/eventos", "/eventos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/tipos", "/tipos/**").permitAll()
                 // Solo admin — gestión de eventos
                 .requestMatchers(HttpMethod.POST, "/eventos/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/eventos/**").hasAuthority("ROLE_ADMIN")
