@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,5 +9,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
-  
+  variante = input<'publica' | 'privada' | 'admon' | 'contacto'>('publica'); // (publica) es el valor por defecto
 }

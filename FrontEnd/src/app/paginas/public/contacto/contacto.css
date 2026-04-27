@@ -41,7 +41,6 @@ h1 {
 .container-contacto {
     max-width: 900px;
     margin: auto;
-    padding: 20px;
 }
 
 .card-contacto {
@@ -118,4 +117,51 @@ h3 {
     height: 40px;
     object-fit: contain;
     margin-right: 10px;
+}
+
+.custom-rounded{
+    border-radius: 6px 36px 6px 36px;
+}
+
+
+.nav-link-soft {
+    display: inline-block;
+    transition:
+        font-size 200ms ease-out,
+        color 200ms ease;
+}
+
+.nav-link-soft:hover {
+    color: #000000 !important;
+    font-weight: bolder;
+    transition: 200ms ease-out;
+}
+
+/* Retraccion linea  botones */
+.nav-link-soft::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    /* empieza desde la derecha */
+    right: 0;
+    width: 0%;
+    height: 2px;
+    /* primary de Bootstrap */
+    background-color: #000000;
+    transition: width 200ms ease-out;
+}
+
+/* Hover: entrada linea  hacia la izquierda */
+.nav-link-soft:hover::after {
+    width: 105%; /* sobresale un poco por la izquierda */
+    left: auto;
+    right: -5%; /* sobresale un poco por la derecha*/
+    transition: width 300ms ease-out;
+}
+
+.background-home {
+  background-image: linear-gradient(30deg, rgba(25, 112, 50, 0.312),  rgba(25, 112, 50, 0.056), white);
+  background-size: cover;
+  background-position: center;
+  /*min-height: 100vh;*/
 }
