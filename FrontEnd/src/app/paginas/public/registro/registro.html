@@ -1,16 +1,13 @@
-<div class="container">
-    <button class="btn-back" (click)="volver()">
-        <img src="/icons/back-button.svg" alt="Volver" class="icon-back"> Volver
-    </button>
+<div class="container w-75">
 
-    <div class="card-login">
+    <div class="card-login w-50">
 
         <h2 class="text-center mb-4">Crear cuenta</h2>
 
         <form (ngSubmit)="registro()">
 
             <!-- NOMBRE -->
-            <div>
+<!--             <div>
                 <label>Nombre</label>
                 <input type="text" [(ngModel)]="nombre" name="nombre" required #nombreCtrl="ngModel"
                     placeholder="Tu nombre">
@@ -20,16 +17,16 @@
                     El nombre es obligatorio
                 </div>
                 }
-            </div>
+            </div> -->
 
             <!-- EMAIL -->
             <div>
-                <label>Email</label>
+                <label class="mb-2 fw-bold">Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
                     placeholder="correo@email.com">
 
                 @if (emailCtrl.invalid && emailCtrl.touched) {
-                <div class="text-danger">
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     Introduce un email válido
                 </div>
                 }
@@ -37,12 +34,12 @@
 
             <!-- PASSWORD -->
             <div>
-                <label>Contraseña</label>
+                <label class="mb-2 fw-bold">Contraseña</label>
                 <input type="password" [(ngModel)]="password" name="password" required minlength="4" #passCtrl="ngModel"
                     placeholder="••••••">
 
                 @if (passCtrl.invalid && passCtrl.touched) {
-                <div class="text-danger">
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     Mínimo 4 caracteres
                 </div>
                 }
@@ -50,26 +47,34 @@
 
             <!-- CONFIRMAR PASSWORD -->
             <div>
-                <label>Repetir contraseña</label>
+                <label class="mb-2 fw-bold">Repetir contraseña</label>
                 <input type="password" [(ngModel)]="password2" name="password2" required #pass2Ctrl="ngModel"
                     placeholder="••••••">
 
                 @if (password !== password2 && pass2Ctrl.touched) {
-                <div class="text-danger">
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     Las contraseñas no coinciden
                 </div>
                 }
+
+                @if (email === '' && password === '' && password2 === '' && emailCtrl.touched &&
+                    passCtrl.touched && pass2Ctrl.touched) {
+                <div class="text-danger bg-danger-subtle text-center mb-3">
+                    Todos los campos son obligatorios.
+                </div>
+                }
+
             </div>
 
             @if (mensajeOk) {
-            <div class="text-success mb-2">
+            <div class="text-success mb-2 bg-success-subtle mb-3 text-center">
                 {{ mensajeOk }}
             </div>
             }
 
             <!-- ERROR -->
             @if (error) {
-            <div class="text-danger mb-2">
+            <div class="text-danger mb-2 bg-danger-subtle text-center mb-3">
                 {{ error }}
             </div>
             }
@@ -85,7 +90,7 @@
                     }
 
                 </button>
-             </div>
+            </div>
 
 
             <!-- CHECKBOX -->

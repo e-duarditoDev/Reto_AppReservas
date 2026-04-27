@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appeventos.model.dto.UsuarioDto;
+import com.appeventos.model.dto.UsuarioRegistroDto;
 import com.appeventos.model.entity.Perfil;
 import com.appeventos.model.entity.Usuario;
 import com.appeventos.model.entity.UsuarioPerfiles;
@@ -92,8 +93,10 @@ public class HomeRestController {
 		return ResponseEntity.ok(tokenTemp);
 	}
 	
-	@PostMapping("/alta-cliente/{tokenTemp}")// GetMapping porque un clic sobre un link siempre es GET (excepcion convencional)
-	public ResponseEntity<?> altaCliente (@PathVariable String tokenTemp){
+	@PostMapping("/alta-cliente/{tokenTemp}")
+	public ResponseEntity<?> altaCliente (@PathVariable String tokenTemp, @RequestBody UsuarioRegistroDto usuarioDto){
+		
+		//System.out.println("DTO recibido: " + usuarioDto.getNombre() + " | " + usuarioDto.getApellidos() + " | " + usuarioDto.getDireccion());
 		
 		if (tokenTemp.isBlank() || tokenTemp == null)
 			return ResponseEntity.badRequest().body("Token no proporcionado o nulo.");
@@ -103,7 +106,7 @@ public class HomeRestController {
 		
 		//no arroja resultados, el token debe estar corrupto o no existe en la tabla
 		if(ut == null)
-			return ResponseEntity.badRequest().body("No se ha encontrado un usuario temporal.");
+			return ResponseEntity.badRequest().body("Usuario ya registrado o link de confirmacion expirado.");
 		
 		//Si el token esta expirado, borrar registro y lanzar badrequest
 		if (ut.getFechaExpiracion().isBefore(LocalDateTime.now())) {
@@ -126,12 +129,16 @@ public class HomeRestController {
 		usuario.setPassword(ut.getPassword());
 		usuario.setEmail(ut.getEmail());
 		usuario.setFechaRegistro(LocalDate.now());
+	    usuario.setNombre(usuarioDto.getNombre());
+	    usuario.setApellidos(usuarioDto.getApellidos());
+	    usuario.setDireccion(usuarioDto.getDireccion());
+	    usuario.setEnabled(1);
 		
-		//Insertar el usuario en la tabla usuario y borrar el temporal
+		//Insertar el usuario en la tabla usuario
 		usuarioServ.insertarUno(usuario);
-		usuarioTempServ.deleteOne(ut.getId());
+
 		
-		System.out.println("Username: "+usuario.getAliasUsuario()+"\n"+"Perfil: "+perfil.getIdPerfil());
+		//System.out.println("Username: "+usuario.getAliasUsuario()+"\n"+"Perfil: "+perfil.getIdPerfil());
 
 		//Construir el UsuarioPerfilesId
 		UsuarioPerfilesId usuarioPerfilesId = new UsuarioPerfilesId (
@@ -148,6 +155,9 @@ public class HomeRestController {
 		
 		//Insertar el UsuarioPerfiles
 		usuPerfServ.insertarUno(usuarioPerfiles);
+		
+		//Limpiar usuario temporal
+		usuarioTempServ.deleteOne(ut.getId());
 			
 		return ResponseEntity.ok().body("Usuario creado con éxito.");
 	}
@@ -170,5 +180,7 @@ public class HomeRestController {
 		return ResponseEntity.ok(token);
 
 	}
+	
+
 
 }

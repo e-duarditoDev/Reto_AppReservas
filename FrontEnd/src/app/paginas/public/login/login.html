@@ -1,41 +1,48 @@
-<div class="container">
-    <button class="btn-back" (click)="volver()">
-        <img src="/icons/back-button.svg" alt="Volver" class="icon-back"> Volver
-    </button>
+<div class="container w-75">
 
-    <div class="card-login">
+    <div class="card-login w-50">
 
         <h2 class="text-center mb-4">Iniciar sesión</h2>
 
         <form (ngSubmit)="login()" class="d-flex flex-column align-items-center w-auto p-0 m-0">
 
             <div class="w-100">
-                <label>Email</label>
+                <label class="mb-2 fw-bold">Email</label>
                 <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
                     placeholder="Introduce su email">
 
-                <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger">
+                @if (emailCtrl.invalid && emailCtrl.touched) {
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     Introduce un email válido
                 </div>
             </div>
 
             <div class="w-100">
-                <label>Password</label>
+                <label class="mb-2 fw-bold">Password</label>
                 <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel"
                     placeholder="Introduce su contraseña">
 
-                <div *ngIf="passCtrl.invalid && passCtrl.touched" class="text-danger">
+                @if (passCtrl.invalid && passCtrl.touched) {
+                <div class="text-danger bg-danger-subtle text-center mb-3">
                     La contraseña es obligatoria
                 </div>
             </div>
 
-            <div *ngIf="error" class="text-danger mb-2">
+            <!-- ERROR GENERAL -->
+            @if (error) {
+            <div class="text-danger mb-2 bg-danger-subtle text-center">
                 {{ error }}
             </div>
 
-            <button class="btn btn-success w-75 mt-3 custom-rounded" [disabled]="loading">
-                <span *ngIf="!loading">Aceptar</span>
-                <span *ngIf="loading">Cargando...</span>
+            <!-- BOTÓN -->
+            <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading">
+
+                @if (!loading) {
+                <span>Aceptar</span>
+                } @else {
+                <span>Cargando...</span>
+                }
+
             </button>
 
             <a routerLink="/recuperar-password" class="link-forgot">

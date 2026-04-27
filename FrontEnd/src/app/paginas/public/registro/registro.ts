@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { AuthService } from '../../../servicios/auth-service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-registro',
@@ -23,6 +24,7 @@ export class Registro {
   newsletter = false;
 
   private authService = inject(AuthService);
+  private cd = inject(ChangeDetectorRef);
 
   constructor(private location: Location) {}
 
@@ -34,14 +36,8 @@ export class Registro {
     this.error = '';
     this.mensajeOk = '';
 
-    // VALIDACIONES
-    if (!this.nombre || !this.email || !this.password) {
-      this.error = 'Todos los campos son obligatorios';
-      return;
-    }
-
     if (this.password !== this.password2) {
-      this.error = 'Las contraseñas no coinciden';
+      this.error = 'Las contraseñas no coinciden.';
       return;
     }
 
@@ -55,16 +51,27 @@ export class Registro {
       newsletter: this.newsletter
     };
 
-    // LLAMADA REAL
-    // this.authService.confirmarEmail(datosRegistro).subscribe({
-    //   next: () => {
-    //     this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
-    //     this.loading = false;
-    //   },
-    //   error: (err) => {
-    //     this.error = err.error || 'Ha ocurrido un error, inténtalo de nuevo.';
-    //     this.loading = false;
-    //   }
-    // });
+
+    this.authService.confirmarEmail(this.email, this.password).subscribe({
+      next: () => {
+        console.log('next ejecutado');
+        this.mensajeOk = 'Revisa tu correo para confirmar tu cuenta.';
+        this.loading = false;
+        this.cd.detectChanges();
+      },
+      error: (err) => {
+        this.error = typeof err.error === 'string' ? err.error : 'Ha ocurrido un error, intentalo de nuevo.';
+        this.loading = false;
+        this.cd.detectChanges();
+
+      }
+    });
+
+    // simulación
+    /*     setTimeout(() => {
+          console.log('Usuario registrado:', this.nombre);
+          this.loading = false;
+        }, 1000); */
+
   }
 }

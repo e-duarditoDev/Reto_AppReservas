@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../servicios/auth-service';
-import { Location } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -20,14 +20,9 @@ export class Login {
   loading: boolean = false;
   error: string = '';
 
-  private authService = inject(AuthService);
-  private router = inject(Router);
-  private location: Location = inject(Location);
-
-
-  volver() {
-    this.location.back();
-  }
+  private authService: any = inject(AuthService); // Inyectamos el servicio de autenticación (simulado)
+  private router: any = inject(Router); // Inyectamos el Router para redirigir después del login  
+  private cd = inject(ChangeDetectorRef);
 
   login() {
     this.error = '';
@@ -40,17 +35,15 @@ export class Login {
     this.loading = true;
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (res: any) => {
-        const token = res.token || res;
-
-        localStorage.setItem('jwt', token);
-        this.router.navigate(['/']);
-
+      next: (token: string) => {
+        localStorage.setItem('jwt', token); // guarda el JWT
+        this.router.navigateByUrl('/'); // redirige al home
         this.loading = false;
       },
       error: () => {
         this.error = 'Usuario no registrado o credenciales incorrectas.';
         this.loading = false;
+        this.cd.detectChanges();
       }
     });
   }

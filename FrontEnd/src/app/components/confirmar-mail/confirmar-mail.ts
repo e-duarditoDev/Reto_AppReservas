@@ -16,7 +16,6 @@ export class ConfirmarMail implements OnInit {
   loading = true;
 
   private route = inject(ActivatedRoute);
-  private authService = inject(AuthService);
   private router = inject(Router);
 
   ngOnInit(): void {
@@ -28,17 +27,7 @@ export class ConfirmarMail implements OnInit {
       return;
     }
 
-    this.authService.altaCliente(token).subscribe({
-      next: () => {
-        this.mensaje = 'Cuenta confirmada con éxito. Ya puedes iniciar sesión.';
-        this.loading = false;
-        setTimeout(() => this.router.navigate(['/login']), 3000);
-      },
-      error: (err) => {
-        this.error = err.error || 'Ha ocurrido un error al confirmar la cuenta.';
-        this.loading = false;
-      }
-    });
+    this.router.navigate(['/completar-usuario'], { queryParams: { token } });
   }
 
 }

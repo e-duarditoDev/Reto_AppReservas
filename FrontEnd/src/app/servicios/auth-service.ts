@@ -20,11 +20,13 @@ export class AuthService {
     );
   }
 
-  // Paso 2: Se llama desde el link del email → crea el usuario definitivo
-  altaCliente(tokenTemp: string): Observable<string> {
+  // Paso 2: Se llama desde el link del email, crea el usuario definitivo
+  altaCliente(
+    tokenTemp: string,
+    datos: { nombre: string; apellidos: string; direccion: string }): 
+    Observable<string> {
     return this.http.post(
-      `${this.llamadaApi}/alta-cliente/${tokenTemp}`,
-      {},
+      `${this.llamadaApi}/alta-cliente/${tokenTemp}`,datos, //DTO serializado como JSON
       { responseType: 'text' }
     );
   }

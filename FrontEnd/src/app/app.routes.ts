@@ -32,13 +32,23 @@ export const routes: Routes = [
       loadComponent: () => import('./paginas/public/contacto/contacto').then(comp => comp.Contacto),
       title: 'Recuperar contraseña'
   },
-  {
-    path: '**', // ruta wildcard, se activa si no se encuentra ninguna ruta coincidente
-    redirectTo: '' // Redirige a la ruta raíz (home) si no se encuentra la ruta solicitada
-  },
+
   {
     path: 'confirmar-mail',
     loadComponent: () => import('./components/confirmar-mail/confirmar-mail').then(comp => comp.ConfirmarMail),
     title: 'Confirmar correo electrónico'
-  }
+  },
+
+  {
+    path: 'completar-usuario',
+    loadComponent: () => import('./components/completar-usuario/completar-usuario')
+    .then(comp => comp.CompletarUsuario),
+    title: 'Completar perfil de usuario'
+  },
+
+    {
+    path: '**', // ruta wildcard, se activa si no se encuentra ninguna ruta coincidente
+    redirectTo: '' // Redirige a la ruta raíz (home) si no se encuentra la ruta solicitada
+  },
+
 ];

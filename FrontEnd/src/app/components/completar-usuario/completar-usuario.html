@@ -1,0 +1,66 @@
+<div class="container d-flex flex-column align-items-center mt-5 mx-auto w-50 shadow rounded-3 p-0">
+
+  <h2 class="text-center mb-4 bg-success-subtle p-3 w-100 rounded-top-3">Completa tus datos</h2>
+
+
+  @if (mensajeOk) {
+  <div class="text-success bg-success-subtle text-center m-3">
+    {{ mensajeOk }}
+  </div>
+  }
+
+  @if (!mensajeOk) {
+  <!-- 
+        ngsubmit escucha el evento de envío del formulario
+        se llama al metodo completarRegistro() del componente, que se encargará de validar los datos y llamar al servicio para completar el registro del usuario.
+        novalidate evita que el navegador realice su validación nativa, permitiendo que Angular maneje la validación de los campos.
+        -->
+  <form (ngSubmit)="completarRegistro()" novalidate class="w-75 d-flex flex-column align-items-center">
+
+    <div class="d-flex flex-column w-100 mb-3">
+      <label for="nombre" class="mb-2 fw-bold">Nombre</label>
+      <input class="form-control" id="nombre" type="text" [(ngModel)]="nombre" name="nombre" required
+        #nombreCtrl="ngModel">
+      @if (nombreCtrl.invalid && nombreCtrl.touched) {
+      <div class="text-danger bg-danger-subtle text-center m-3 w-100 mx-auto">
+        El nombre es obligatorio.
+      </div>
+      }
+    </div>
+
+    <div class="d-flex flex-column w-100 mb-3">
+      <label for="apellidos" class="mb-2 fw-bold">Apellidos</label>
+      <input class="form-control" id="apellidos" type="text" [(ngModel)]="apellidos" name="apellidos" required
+        placeholder="Tus apellidos" #apellidosCtrl="ngModel">
+      @if (apellidosCtrl.invalid && apellidosCtrl.touched) {
+      <div class="text-danger bg-danger-subtle text-center m-3 w-100 mx-auto">
+        Los apellidos son obligatorios.
+      </div>
+      }
+    </div>
+
+    <div class="d-flex flex-column w-100 mb-3">
+      <label for="direccion" class="mb-2 fw-bold">Dirección</label>
+      <input class="form-control" id="direccion" type="text" [(ngModel)]="direccion" name="direccion" required
+        placeholder="Tu dirección" #direccionCtrl="ngModel">
+      @if (direccionCtrl.invalid && direccionCtrl.touched) {
+      <div class="text-danger bg-danger-subtle text-center m-3 w-100 mx-auto">
+        La dirección es obligatoria.
+      </div>
+      }
+    </div>
+
+    <!-- ERROR -->
+    @if (error) {
+    <div class="text-danger bg-danger-subtle text-center m-3 w-100 mx-auto">
+      {{ error }}
+    </div>
+    }
+    <button type="submit" [disabled]="loading" class="btn btn-outline-success mt-4 mb-5 w-50 custom-rounded py-2">
+      {{ loading ? 'Guardando...' : 'Aceptar' }}
+    </button>
+
+  </form>
+  }
+
+</div>
