@@ -12,7 +12,6 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-
 export class Login {
 
   email: string = '';
