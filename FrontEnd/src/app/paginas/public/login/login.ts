@@ -46,5 +46,17 @@ export class Login {
         this.cd.detectChanges();
       }
     });
+
+    // Simulación de login (luego conectamos backend)
+    /*     setTimeout(() => {
+          if (this.email === 'test@test.com' && this.password === '1234') {
+            localStorage.setItem('usuario', this.email);
+            console.log('Login correcto');
+          } else {
+            this.error = 'Credenciales incorrectas';
+          }
+    
+          this.loading = false;
+        }, 1000); */
   }
 }
