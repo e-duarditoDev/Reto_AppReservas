@@ -59,6 +59,5 @@ export class Login {
     
           this.loading = false;
         }, 1000); */
-
   }
 }
