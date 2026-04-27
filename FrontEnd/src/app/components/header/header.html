@@ -52,16 +52,17 @@
                 class="nav-link-soft text-decoration-none text-muted fw-medium position-relative">Contacto</a>
         </nav>
 
-        <div class="d-flex justify-content-center gap-2">
+        @if (cliente) {
 
-            <a routerLink="/login" class="btn btn-outline-success px-5 shadow-sm custom-rounded">
-                Entrar
-            </a>
+        <nav>
+            <a routerLink="/misReservas"
+                class="nav-link-soft text-decoration-none text-muted fw-medium position-relative">Mis reservas</a>
+        </nav>
 
-            <a routerLink="/registro" class="btn btn-success shadow-sm px-4 custom-rounded">
-                Registrarse
-            </a>
-        </div>
+        <a (click)="logout()" routerLink="/" class="btn btn-outline-success px-5 shadow-sm custom-rounded">
+            Cerrar sesión
+        </a>
+        }
 
     </div>
 </header>
@@ -110,7 +111,8 @@
 
     <div class="d-flex flex-row justify-content-center align-items-center gap-4">
 
-        <a routerLink="/" aria-label="Ir a inicio." class="d-flex flex-row align-items-center gap-3 text-decoration-none">
+        <a routerLink="/" aria-label="Ir a inicio."
+            class="d-flex flex-row align-items-center gap-3 text-decoration-none">
             <img src="/iconos/pareja_verde.webp" alt="Logo corporativo" width="60" height="60"
                 class="img-fluid img-hover">
             <p

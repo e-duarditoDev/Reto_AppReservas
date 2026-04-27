@@ -24,9 +24,4 @@ export class EventoService {
   getEventoId(id: number): Observable<Evento> {
     return this.http.get<Evento>(`${this.apiUrl}/${id}`);
   }
-
-
-
-
-
 }
