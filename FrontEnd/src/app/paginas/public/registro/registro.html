@@ -4,10 +4,12 @@
 
         <h2 class="text-center mb-4">Crear cuenta</h2>
 
-        <form (ngSubmit)="registro()">
+        <!-- $event.preventDefault() cancela comportamiento por defeecto del form (recargar pagina)
+        registro() llama al metodo -->
+        <form class="form" (submit)="$event.preventDefault(); registro()">
 
             <!-- NOMBRE -->
-<!--             <div>
+            <!--             <div>
                 <label>Nombre</label>
                 <input type="text" [(ngModel)]="nombre" name="nombre" required #nombreCtrl="ngModel"
                     placeholder="Tu nombre">
@@ -21,67 +23,43 @@
 
             <!-- EMAIL -->
             <div>
-                <label class="mb-2 fw-bold">Email</label>
-                <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel"
+                <label class="form-label">Email</label>
+                <!-- [value] toma el valor de email del ts, (imput) captura lo que se escribe y lo asigna a email del ts -->
+                <input type="email" name="email" [value]="email" (input)="email = $event.target.value"
                     placeholder="correo@email.com">
-
-                @if (emailCtrl.invalid && emailCtrl.touched) {
-                <div class="text-danger bg-danger-subtle text-center mb-3">
-                    Introduce un email válido
-                </div>
-                }
             </div>
 
             <!-- PASSWORD -->
             <div>
-                <label class="mb-2 fw-bold">Contraseña</label>
-                <input type="password" [(ngModel)]="password" name="password" required minlength="4" #passCtrl="ngModel"
+                <label class="form-label">Contraseña</label>
+                <input type="password" name="password" [value]="password" (input)="password = $event.target.value"
                     placeholder="••••••">
-
-                @if (passCtrl.invalid && passCtrl.touched) {
-                <div class="text-danger bg-danger-subtle text-center mb-3">
-                    Mínimo 4 caracteres
-                </div>
-                }
             </div>
 
             <!-- CONFIRMAR PASSWORD -->
             <div>
                 <label class="mb-2 fw-bold">Repetir contraseña</label>
-                <input type="password" [(ngModel)]="password2" name="password2" required #pass2Ctrl="ngModel"
+                <input type="password" name="password2" [value]="password2" (input)="password2 = $event.target.value"
                     placeholder="••••••">
-
-                @if (password !== password2 && pass2Ctrl.touched) {
-                <div class="text-danger bg-danger-subtle text-center mb-3">
-                    Las contraseñas no coinciden
-                </div>
-                }
-
-                @if (email === '' && password === '' && password2 === '' && emailCtrl.touched &&
-                    passCtrl.touched && pass2Ctrl.touched) {
-                <div class="text-danger bg-danger-subtle text-center mb-3">
-                    Todos los campos son obligatorios.
-                </div>
-                }
-
             </div>
 
-            @if (mensajeOk) {
-            <div class="text-success mb-2 bg-success-subtle mb-3 text-center">
-                {{ mensajeOk }}
+            <!--  Mensajes de error -->
+            @if (error) {
+            <div class="text-danger bg-danger-subtle text-center mb-3 p-2">
+                {{error}}
             </div>
             }
-
-            <!-- ERROR -->
-            @if (error) {
-            <div class="text-danger mb-2 bg-danger-subtle text-center mb-3">
-                {{ error }}
+            
+            <!-- Mensaje exito -->
+            @if (ok) {
+            <div class="text-success bg-success-subtle mb-3 text-center p-2">
+                {{ ok }}
             </div>
             }
 
             <!-- BOTÓN -->
-             <div class="d-flex justify-content-center align-items-center">
-                <button class="btn-login w-75 custom-rounded" [disabled]="loading">
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn-login w-75 custom-rounded" [disabled]="loading" (click)="registro()">
 
                     @if (!loading) {
                     <span>Registrarse</span>
@@ -96,7 +74,9 @@
             <!-- CHECKBOX -->
             <div class="checkbox-container">
                 <label class="checkbox-label">
-                    <input type="checkbox" [(ngModel)]="newsletter" name="newsletter">
+                    <!-- (change) detecta cambios en el checbox, checkbox devuelve true si esta marcado, $event.target.checked captura 
+                    el evento true del checkbox, para asignarlo a newsletter del ts -->
+                    <input type="checkbox" name="newsletter" (change)="newsletter = $event.target.checked">
 
                     Deseo recibir noticias y ofertas
                 </label>
