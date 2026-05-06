@@ -11,7 +11,8 @@ export class AuthService {
   private http = inject(HttpClient);
   private llamadaApi = 'http://localhost:8082/auth';
 
-  // Paso 1: Envía email + password → genera usuarioTemp y manda el correo de confirmación
+  // Paso 1: Envía email + password → genera usuarioTemp y manda el correo de confirmacióne
+  // Obsevable<string> emite los que devuelve el back, un mensaje <string> con el resultado de la consulta
   confirmarEmail(email: string, password: string): Observable<string> {
     return this.http.post(
       `${this.llamadaApi}/confirmar-email`,

@@ -1,32 +1,35 @@
 <div class="container w-75">
   <div class="card-login w-50">
     <h2 class="text-center mb-4">Iniciar sesión</h2>
-    <form (ngSubmit)="login()" class="d-flex flex-column align-items-center w-auto p-0 m-0">
-      <div class="w-100">
-        <label class="mb-2 fw-bold">Email</label>
-        <input type="email" [(ngModel)]="email" name="email" required #emailCtrl="ngModel" placeholder="Introduce su email" />
-        @if (emailCtrl.invalid && emailCtrl.touched) {
-        <div class="text-danger bg-danger-subtle text-center mb-3">Introduce un email válido</div>
-        }
+
+    <form class="form" (submit)="$event.preventDefault(); login()">
+
+      <div>
+        <label class="form-label">Email</label>
+        <input type="email" name="emal" [value]="email" (input)="email = $event.target.value" />
       </div>
-      <div class="w-100">
-        <label class="mb-2 fw-bold">Password</label>
-        <input type="password" [(ngModel)]="password" name="password" required #passCtrl="ngModel" placeholder="Introduce su contraseña" />
-        @if (passCtrl.invalid && passCtrl.touched) {
-        <div class="text-danger bg-danger-subtle text-center mb-3">La contraseña es obligatoria</div>
-        }
+
+      <div>
+        <label class="form-label">Password</label>
+        <input type="password" name="password" [value]="password" (input)=" password = $event.target.value" />
       </div>
+
       @if (error) {
-      <div class="text-danger mb-2 bg-danger-subtle text-center">{{ error }}</div>
+      <div class="text-danger mb-2 py-1 bg-danger-subtle text-center">{{ error }}</div>
       }
-      <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading" type="submit">
-        @if (!loading) {
-        <span>Aceptar</span>
-        } @else {
-        <span>Cargando...</span>
-        }
-      </button>
-      <a routerLink="/recuperar-password" class="link-forgot mt-2">¿Has olvidado la contraseña?</a>
+
+      <div class="d-flex justify-content-center align-items-center mb-4">
+        <button class="btn btn-success w-50 mt-3 custom-rounded" [disabled]="loading" type="submit">
+          @if (!loading) {
+          <span>Aceptar</span>
+          } @else {
+          <span>Cargando...</span>
+          }
+        </button>
+      </div>
+
+      <a routerLink="/recuperar-password" class="link-forgot mt-2 text-center">¿Has olvidado la contraseña?</a>
     </form>
+
   </div>
 </div>

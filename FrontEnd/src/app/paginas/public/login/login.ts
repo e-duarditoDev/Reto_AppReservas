@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../servicios/auth-service';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -22,13 +21,27 @@ export class Login {
 
   private authService: any = inject(AuthService); // Inyectamos el servicio de autenticación (simulado)
   private router: any = inject(Router); // Inyectamos el Router para redirigir después del login  
-  private cd = inject(ChangeDetectorRef);
 
   login() {
     this.error = '';
 
-    if (!this.email || !this.password) {
+    if (this.email === '' &&  this.password === '' ) {
       this.error = 'Todos los campos son obligatorios';
+      return;
+    }
+
+    if (this.email === '') {
+      this.error = 'Introduce un email.';
+      return;
+    }
+
+    if (!this.email.includes('@')) {
+      this.error = 'Email en formato incorrecto';
+      return;
+    }
+
+    if (this.password === '') {
+      this.error = 'Introduce una contraseña.';
       return;
     }
 
@@ -43,7 +56,6 @@ export class Login {
       error: () => {
         this.error = 'Usuario no registrado o credenciales incorrectas.';
         this.loading = false;
-        this.cd.detectChanges();
       }
     });
 
